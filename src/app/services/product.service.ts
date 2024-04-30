@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import Product from '../models/product.model';
+import { Response } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,11 @@ export class ProductService {
   readonly baseURL = 'http://localhost:8000/Product';
 
   getProducts() {
-    return this.http.get<Product[]>(`${this.baseURL}`);
+    return this.http.get<Response>(`${this.baseURL}`);
   }
 
   getProduct(id: number | string) {
-    return this.http.get<Product>(`${this.baseURL}/${id}`);
+    return this.http.get<Response>(`${this.baseURL}/${id}`);
   }
 
   post(product: Product) {
