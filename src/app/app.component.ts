@@ -7,7 +7,6 @@ import { NavbarComponent } from './views/navbar/navbar.component';
   standalone: true,
   imports: [RouterModule, RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'ngInventory';
