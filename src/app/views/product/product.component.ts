@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Response } from '../../models/response.model';
 import { FormsModule } from '@angular/forms';
+import { TransactionService } from '../../services/transaction.service';
+import Transaction from '../../models/transaction.model';
 
 @Component({
   selector: 'app-product',
@@ -19,8 +21,18 @@ export class ProductComponent implements OnInit {
   isEditProduct: boolean = false;
 
   product = new Product();
+  transaction = new Transaction();
 
-  constructor(private productService: ProductService) {}
+  isExp: boolean = false;
+  isAddStock: boolean = false;
+  isSales: boolean = false;
+
+  quantity = 0;
+
+  constructor(
+    private productService: ProductService,
+    private transactionService: TransactionService
+  ) {}
 
   ngOnInit() {
     this.productService.getProducts().subscribe(
@@ -70,6 +82,7 @@ export class ProductComponent implements OnInit {
     // console.log(productId);
     this.isEditProduct = true;
     this.isAddProduct = false;
+    this.isExp = false;
     this.idProduct = productId;
 
     this.productService.getProduct(this.idProduct).subscribe(
@@ -110,4 +123,48 @@ export class ProductComponent implements OnInit {
       }
     );
   }
+
+  //หมดอายุ
+  onExp(productId: number) {
+    if (this.isExp) {
+      this.isExp = false;
+    } else {
+      this.isExp = true;
+      this.idProduct = productId;
+      this.isEditProduct = false;
+      this.isAddProduct = false;
+      this.isSales = false;
+    }
+  }
+
+  onSubmitExp() {
+    // console.log(this.product.id);
+
+    const data = {
+      id: this.product.id,
+      quantity: this.quantity,
+    };
+
+    // console.log(data);
+
+    this.productService.updateQuantity(data).subscribe(
+      (result) => {
+        // console.log(result);
+        window.location.reload();
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  closeExp() {
+    this.isExp = false;
+  }
+
+  //เพิ่มสต๊อก
+  onAddStock(productId: number) {}
+
+  //ขาย
+  onSale(productId: number) {}
 }

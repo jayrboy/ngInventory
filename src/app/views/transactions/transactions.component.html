@@ -1,3 +1,106 @@
-<p>
-  transactions works!
-</p>
+<!-- Button Add transaction -->
+<!-- <div class="bg-white text-center m-3">
+  <button class="bg-cyan-500 hover:bg-cyan-600 text-white e py-1 px-3 rounded" (click)="onAddTransaction()">Add
+    Transaction</button>
+</div> -->
+
+<!-- Table transaction -->
+<div class="overflow-x-auto mt-5">
+  <table
+    class="mx-auto w-full sm:max-w-4xl bg-white shadow-sm rounded overflow-hidden caption-bottom divide-y divide-gray-200">
+    <caption class="text-start mx-3 text-gray-400">
+      <ng-container *ngIf="AllTransaction; else elseBlock">
+        <p>พบข้อมูลทั้งหมด {{AllTransaction.length}} รายการ</p>
+      </ng-container>
+      <ng-template #elseBlock>
+        <p>ไม่พบข้อมูล</p>
+      </ng-template>
+    </caption>
+    <thead class="bg-gray-200 text-gray-700">
+      <tr>
+        <th class="px-2 py-1">ID</th>
+        <th class="px-2 py-1">Product ID</th>
+        <th class="px-2 py-1">Transaction Type</th>
+        <th class="px-2 py-1">Quantity</th>
+        <th class="px-2 py-1">Updated</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-600 divide-y divide-gray-200">
+      <tr *ngFor="let p of AllTransaction" class="hover:bg-gray-100">
+        <td class="px-2 py-1">{{ p.id }}</td>
+        <td class="px-2 py-1">{{ p.product.name }}</td>
+        <td class="px-2 py-1">{{ p.transactionType.name }}</td>
+        <td class="px-2 py-1">{{ p.quantity }}</td>
+        <td class="px-2 py-1">{{ p.updateDate | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Form Add transaction -->
+<ng-container *ngIf="isAddTransaction;">
+  <div style="width: 500px;" class="mx-auto mt-5">
+    <form (submit)="onSubmitCreate()">
+      <div class="space-y-12 m-3">
+
+        <div class="border-b border-gray-900/10 pb-12">
+          <h2 class="text-base font-semibold leading-7 text-gray-900">Add Transaction Information</h2>
+          <p class="mt-1 text-sm leading-6 text-gray-600">Use form where you can receive to server.</p>
+
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+            <!-- Name -->
+            <div class="sm:col-span-3">
+              <label class="block text-sm font-medium leading-6 text-gray-900">Product ID</label>
+              <div class="mt-2">
+                <input autocomplete="off" [(ngModel)]="transaction.productId" type="text" name="productId"
+                  id="transaction-name" style="text-align: center;"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="sm:col-span-3">
+              <label class="block text-sm font-medium leading-6 text-gray-900">Transaction Type ID</label>
+              <div class="mt-2">
+                <input [(ngModel)]="transaction.transactionTypeId" type="text" name="transactionTypeId"
+                  id="transaction-description" style="text-align: center;"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+            <!-- Category ID -->
+            <div class="sm:col-span-2 sm:col-start-1">
+              <label class="block text-sm font-medium leading-6 text-gray-900">Quantity</label>
+              <div class="mt-2">
+                <input [(ngModel)]="transaction.quantity" type="number" name="quantity" id="categoryId"
+                  style="text-align: center;"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+            <!--Stock Quantity  -->
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium leading-6 text-gray-900">Updated</label>
+              <div class="mt-2">
+                <input [(ngModel)]="transaction.updateDate" type="date" name="updateDate" id="transaction-quantity"
+                  style="text-align: center;"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-end gap-x-6 m-3">
+        <button type="button" class="text-sm font-semibold leading-6 text-gray-900"
+          (click)="closeAddTransaction()">Cancel</button>
+        <button type="submit"
+          class="rounded-md bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+      </div>
+
+    </form>
+  </div>
+</ng-container>

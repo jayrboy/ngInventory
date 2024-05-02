@@ -1,7 +1,18 @@
 <!-- Button Add Product -->
-<div class="bg-white text-center m-3">
+<div class="bg-white text-center m-3 text-sm">
   <button class="bg-indigo-500 hover:bg-indigo-600 text-white e py-1 px-3 rounded" (click)="onAddProduct()">Add
     Product</button>
+</div>
+<div class="bg-white text-center m-3 text-sm" *ngIf="idProduct">
+  <button class="bg-rose-500 text-sm hover:bg-rose-600 text-white py-1 px-3 rounded"
+    (click)="onClickDelete(this.idProduct)">ลบ</button>&nbsp;
+  <button class="bg-amber-500 text-sm hover:bg-amber-600 text-white py-1 px-3 rounded"
+    (click)="onExp(this.idProduct)">หมดอายุ</button>&nbsp;
+  <button class="bg-green-500 text-sm hover:bg-green-600 text-white py-1 px-3 rounded"
+    (click)="onAddStock(this.idProduct)">เพิ่มสต๊อก</button>&nbsp;
+  <button class="bg-blue-500 text-sm hover:bg-blue-600 text-white py-1 px-3 rounded"
+    (click)="onSale(this.idProduct)">ขาย</button>
+
 </div>
 
 <!-- Table Product -->
@@ -18,21 +29,24 @@
     </caption>
     <thead class="bg-gray-200 text-gray-700">
       <tr>
-        <th class="px-2 py-1">#</th>
+        <th class="px-2 py-1">เลือก</th>
         <th class="px-2 py-1">ID</th>
         <th class="px-2 py-1">Name</th>
         <th class="px-2 py-1">Description</th>
         <th class="px-2 py-1">CategoryID</th>
         <th class="px-2 py-1">Quantity</th>
         <th class="px-2 py-1">Price</th>
-        <th class="px-2 py-1">Create</th>
-        <th class="px-2 py-1">Updated</th>
+        <!-- <th class="px-2 py-1">Create</th>
+        <th class="px-2 py-1">Updated</th> -->
       </tr>
     </thead>
     <tbody class="text-gray-600 divide-y divide-gray-200">
       <tr *ngFor="let p of AllProduct" class="hover:bg-gray-100">
         <td class="px-2 py-1">
-          <input type="radio" name="id" value={{p.id}} (click)="onEditProduct(p.id)">
+          <div class="flex justify-center items-center">
+            <input type="radio" name="id" value={{p.id}} (click)="onEditProduct(p.id)"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+          </div>
         </td>
         <td class="px-2 py-1">{{ p.id }}</td>
         <td class="px-2 py-1">{{ p.name }}</td>
@@ -40,8 +54,8 @@
         <td class="px-2 py-1">{{ p.categoryId }}</td>
         <td class="px-2 py-1">{{ p.stockQuantity }}</td>
         <td class="px-2 py-1">{{ p.price }}</td>
-        <td class="px-2 py-1">{{ p.createDate| date: 'dd/MM/yyyy' }}</td>
-        <td class="px-2 py-1">{{ p.updateDate | date: 'dd/MM/yyyy'}}</td>
+        <!-- <td class="px-2 py-1">{{ p.createDate| date: 'dd/MM/yyyy' }}</td>
+        <td class="px-2 py-1">{{ p.updateDate | date: 'dd/MM/yyyy'}}</td> -->
       </tr>
     </tbody>
   </table>
@@ -193,10 +207,43 @@
           (click)="closeEditProduct()">Cancel</button>
         <button type="submit"
           class="rounded-md bg-amber-500 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</button>
-        <button (click)="onClickDelete(this.idProduct)"
-          class="rounded-md bg-rose-500 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-rose-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          Delete
-        </button>
+
+      </div>
+
+    </form>
+  </div>
+</ng-container>
+
+<!-- EXP Action -->
+<ng-container *ngIf="isExp;">
+  <div style="width: 500px;" class="mx-auto mt-5">
+    <form (submit)="onSubmitExp()">
+      <div class="space-y-12 m-3">
+
+        <div class="border-b border-gray-900/10 pb-12">
+          <h2 class="text-base font-semibold leading-7 text-gray-900">หมดอายุ</h2>
+          <p class="mt-1 text-sm leading-6 text-gray-600">Use form where you can receive to server.</p>
+
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+            <!--Stock Quantity  -->
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium leading-6 text-gray-900">จำนวน</label>
+              <div class="mt-2">
+                <input [(ngModel)]="this.quantity" type="number" name="quantity" id="product-quantity"
+                  style="text-align: center;"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-end gap-x-6 m-3">
+        <button type="button" class="text-sm font-semibold leading-6 text-gray-900" (click)="closeExp()">Cancel</button>
+        <button type="submit"
+          class="rounded-md bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
       </div>
 
     </form>
