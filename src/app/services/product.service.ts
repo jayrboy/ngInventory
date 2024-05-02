@@ -36,6 +36,10 @@ export class ProductService {
     return this.http.put<Product>(`${this.baseURL}/UpdateQuantity`, object);
   }
 
+  addQuantity(object: any) {
+    return this.http.put<Product>(`${this.baseURL}/AddQuantity`, object);
+  }
+
   errorHandler(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

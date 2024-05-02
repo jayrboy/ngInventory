@@ -28,6 +28,7 @@ export class ProductComponent implements OnInit {
   isSales: boolean = false;
 
   quantity = 0;
+  addStock = 0;
 
   constructor(
     private productService: ProductService,
@@ -64,10 +65,11 @@ export class ProductComponent implements OnInit {
   onAddProduct() {
     if (this.isAddProduct) {
       this.isAddProduct = false;
-      this.isEditProduct = false;
     } else {
       this.isAddProduct = true;
       this.isEditProduct = false;
+      this.isExp = false;
+      this.isAddStock = false;
     }
 
     // เมื่อเปิดทำงานให้ reset ค่าในฟอร์ม
@@ -134,6 +136,7 @@ export class ProductComponent implements OnInit {
       this.isEditProduct = false;
       this.isAddProduct = false;
       this.isSales = false;
+      this.isAddStock = false;
     }
   }
 
@@ -163,7 +166,40 @@ export class ProductComponent implements OnInit {
   }
 
   //เพิ่มสต๊อก
-  onAddStock(productId: number) {}
+  onAddStock(productId: number) {
+    if (this.isAddStock) {
+      this.isAddStock = false;
+    } else {
+      this.isAddStock = true;
+      this.idProduct = productId;
+      this.isEditProduct = false;
+      this.isAddProduct = false;
+      this.isSales = false;
+      this.isExp = false;
+    }
+  }
+
+  onSubmitAddStock() {
+    const data = {
+      id: this.product.id,
+      quantity: this.addStock,
+    };
+    // console.log(data);
+
+    this.productService.addQuantity(data).subscribe(
+      (result) => {
+        // console.log(result);
+        window.location.reload();
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  closeAddStock() {
+    this.isAddStock = false;
+  }
 
   //ขาย
   onSale(productId: number) {}
