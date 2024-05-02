@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import Categories from '../models/categories.model';
+import { Response } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,11 @@ export class CategoriesService {
   readonly baseURL = 'http://localhost:8000/Category';
 
   getCategories() {
-    return this.http.get<Categories[]>(`${this.baseURL}`);
+    return this.http.get<Response>(`${this.baseURL}`);
   }
 
   getCategoriesById(id: number | string) {
-    return this.http.get<Categories>(`${this.baseURL}/${id}`);
+    return this.http.get<Response>(`${this.baseURL}/${id}`);
   }
 
   post(categories: Categories) {
