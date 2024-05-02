@@ -25,10 +25,11 @@ export class ProductComponent implements OnInit {
 
   isExp: boolean = false;
   isAddStock: boolean = false;
-  isSales: boolean = false;
+  isSale: boolean = false;
 
   quantity = 0;
   addStock = 0;
+  saleQuantity = 0;
 
   constructor(
     private productService: ProductService,
@@ -70,6 +71,7 @@ export class ProductComponent implements OnInit {
       this.isEditProduct = false;
       this.isExp = false;
       this.isAddStock = false;
+      this.isSale = false;
     }
 
     // เมื่อเปิดทำงานให้ reset ค่าในฟอร์ม
@@ -84,6 +86,7 @@ export class ProductComponent implements OnInit {
     // console.log(productId);
     this.isEditProduct = true;
     this.isAddProduct = false;
+    this.isSale = false;
     this.isExp = false;
     this.idProduct = productId;
 
@@ -135,8 +138,9 @@ export class ProductComponent implements OnInit {
       this.idProduct = productId;
       this.isEditProduct = false;
       this.isAddProduct = false;
-      this.isSales = false;
+      this.isSale = false;
       this.isAddStock = false;
+      this.isSale = false;
     }
   }
 
@@ -173,9 +177,9 @@ export class ProductComponent implements OnInit {
       this.isAddStock = true;
       this.idProduct = productId;
       this.isEditProduct = false;
-      this.isAddProduct = false;
-      this.isSales = false;
       this.isExp = false;
+      this.isAddProduct = false;
+      this.isSale = false;
     }
   }
 
@@ -202,5 +206,38 @@ export class ProductComponent implements OnInit {
   }
 
   //ขาย
-  onSale(productId: number) {}
+  onSale(productId: number) {
+    if (this.isSale) {
+      this.isSale = false;
+    } else {
+      this.isSale = true;
+      this.isAddStock = false;
+      this.idProduct = productId;
+      this.isEditProduct = false;
+      this.isExp = false;
+      this.isAddProduct = false;
+    }
+  }
+
+  onSubmitSale() {
+    const data = {
+      id: this.product.id,
+      quantity: this.saleQuantity,
+    };
+    console.log(data);
+
+    this.productService.saleQuantity(data).subscribe(
+      (result) => {
+        // console.log(result);
+        window.location.reload();
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  closeSale() {
+    this.isSale = false;
+  }
 }

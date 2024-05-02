@@ -39,6 +39,9 @@ export class ProductService {
   addQuantity(object: any) {
     return this.http.put<Product>(`${this.baseURL}/AddQuantity`, object);
   }
+  saleQuantity(object: any) {
+    return this.http.put<Product>(`${this.baseURL}/SaleQuantity`, object);
+  }
 
   errorHandler(error: any) {
     let errorMessage = '';
