@@ -9,12 +9,13 @@ import { TransactionService } from '../../services/transaction.service';
 import Transaction from '../../models/transaction.model';
 import { CategoriesService } from '../../services/categories.service';
 import Categories from '../../models/categories.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   templateUrl: './product.component.html',
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, MatIconModule],
 })
 export class ProductComponent implements OnInit {
   AllProduct: Product[] = [];
@@ -267,5 +268,41 @@ export class ProductComponent implements OnInit {
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  isAscendingOrder: boolean = true;
+
+  onSortId() {
+    if (this.isAscendingOrder) {
+      this.AllProduct = this.AllProduct.sort((a, b) => b.id - a.id); // จากมากไปน้อย
+    } else {
+      this.AllProduct = this.AllProduct.sort((a, b) => a.id - b.id); // จากน้อยไปมาก
+    }
+
+    this.isAscendingOrder = !this.isAscendingOrder;
+  }
+
+  onSortQuantity() {
+    if (this.isAscendingOrder) {
+      this.AllProduct = this.AllProduct.sort(
+        (a, b) => b.stockQuantity - a.stockQuantity
+      ); // จากมากไปน้อย
+    } else {
+      this.AllProduct = this.AllProduct.sort(
+        (a, b) => a.stockQuantity - b.stockQuantity
+      ); // จากน้อยไปมาก
+    }
+
+    this.isAscendingOrder = !this.isAscendingOrder;
+  }
+
+  onSortPrice() {
+    if (this.isAscendingOrder) {
+      this.AllProduct = this.AllProduct.sort((a, b) => b.price - a.price); // จากมากไปน้อย
+    } else {
+      this.AllProduct = this.AllProduct.sort((a, b) => a.price - b.price); // จากน้อยไปมาก
+    }
+
+    this.isAscendingOrder = !this.isAscendingOrder;
   }
 }

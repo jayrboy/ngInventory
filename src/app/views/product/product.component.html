@@ -27,12 +27,33 @@
       <thead class="bg-gray-200 text-gray-700">
         <tr>
           <th class="px-2 py-1">เลือก</th>
-          <th class="px-2 py-1">ID</th>
+          <th class="px-2 py-1">ID<button (click)="onSortId()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
           <th class="px-2 py-1">Name</th>
           <th class="px-2 py-1">Description</th>
           <th class="px-2 py-1">Category</th>
-          <th class="px-2 py-1">Quantity</th>
-          <th class="px-2 py-1">Price</th>
+          <th class="px-2 py-1">Quantity<button (click)="onSortQuantity()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
+          <th class="px-2 py-1">Price<button (click)="onSortPrice()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
           <!-- <th class="px-2 py-1">Create</th>
           <th class="px-2 py-1">Updated</th> -->
         </tr>

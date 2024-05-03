@@ -27,9 +27,23 @@
       <thead class="bg-gray-200 text-gray-700">
         <tr>
           <!-- <th class="px-2 py-1">#</th> -->
-          <th class="px-2 py-1">ID</th>
+          <th class="px-2 py-1">ID<button (click)="onSortId()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
           <th class="px-2 py-1">Name</th>
-          <th class="px-2 py-1">Create</th>
+          <th class="px-2 py-1">Create<button (click)="onSortId()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
           <!-- <th class="px-2 py-1">Updated</th> -->
         </tr>
       </thead>

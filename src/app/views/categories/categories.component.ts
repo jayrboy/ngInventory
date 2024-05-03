@@ -5,12 +5,13 @@ import { RouterModule } from '@angular/router';
 import Categories from '../../models/categories.model';
 import { CategoriesService } from '../../services/categories.service';
 import { Response } from '../../models/response.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   templateUrl: './categories.component.html',
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, MatIconModule],
 })
 export class CategoriesComponent implements OnInit {
   AllCategories: Categories[] = [];
@@ -111,5 +112,33 @@ export class CategoriesComponent implements OnInit {
         console.error('Error adding product:', error);
       }
     );
+  }
+
+  isAscendingOrder: boolean = true;
+
+  onSortId() {
+    if (this.isAscendingOrder) {
+      this.AllCategories = this.AllCategories.sort((a, b) => b.id - a.id); // จากมากไปน้อย
+    } else {
+      this.AllCategories = this.AllCategories.sort((a, b) => a.id - b.id); // จากน้อยไปมาก
+    }
+
+    this.isAscendingOrder = !this.isAscendingOrder;
+  }
+
+  onSortCreateDate() {
+    if (this.isAscendingOrder) {
+      this.AllCategories = this.AllCategories.sort(
+        (a, b) =>
+          new Date(b.updateDate).getTime() - new Date(a.updateDate).getTime()
+      ); // จากมากไปน้อย
+    } else {
+      this.AllCategories = this.AllCategories.sort(
+        (a, b) =>
+          new Date(a.updateDate).getTime() - new Date(b.updateDate).getTime()
+      ); // จากน้อยไปมาก
+    }
+
+    this.isAscendingOrder = !this.isAscendingOrder;
   }
 }
