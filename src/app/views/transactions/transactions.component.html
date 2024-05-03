@@ -1,54 +1,61 @@
-<!-- Search -->
-<div style="width: 300px;" class="mx-auto mt-3">
-  <label class="block text-sm font-medium leading-6 text-gray-900">Search Transaction Type
-    ID</label>
-  <div class="relative mt-2 rounded-md shadow-sm">
-    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<section>
+  <!-- Header -->
+  <article class="mt-5 mx-auto max-w-7xl px-8 grid md:grid-cols-1">
+    <h1 class="text-3xl text-black pb-4">Transaction</h1>
+    <hr />
+    <p class="text-xl flex items-center">รายการซื้อขายสินค้า</p>
+  </article>
+
+  <!-- Search -->
+  <article style="width: 300px;" class="mx-auto mt-3">
+    <div class="relative mt-2 rounded-md shadow-sm">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+      </div>
+      <input type="text" name="searchTypeId" id="searchTypeId" (keyup)="onKey($event)"
+        class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        placeholder="ค้นหาชื่อสินค้า">
+      <div class="absolute inset-y-0 right-0 flex items-center">
+        <select id="status" name="status" [(ngModel)]="this.idTransactionType"
+          class="h-full text-center rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+          <option value="1">ขาย</option>
+          <option value="2">เพิ่มสต๊อก</option>
+          <option value="3">หมดอายุ</option>
+        </select>
+      </div>
     </div>
-    <input type="text" name="searchTypeId" id="searchTypeId" (keyup)="onKey($event)"
-      class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      placeholder="ค้นหาชื่อสินค้า">
-    <div class="absolute inset-y-0 right-0 flex items-center">
-      <select id="status" name="status" [(ngModel)]="this.idTransactionType"
-        class="h-full text-center rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-        <option value="1">ขาย</option>
-        <option value="2">เพิ่มสต๊อก</option>
-        <option value="3">หมดอายุ</option>
-      </select>
-    </div>
+  </article>
+
+
+  <!-- Table transaction -->
+  <div class="overflow-x-auto mt-5">
+    <table
+      class="text-center mx-auto w-full sm:max-w-4xl bg-white shadow-sm rounded overflow-hidden caption-bottom divide-y divide-gray-200">
+      <caption class="text-start mx-3 text-gray-400">
+        <ng-container *ngIf="showTransaction; else elseBlock">
+          <p>พบข้อมูลทั้งหมด {{showTransaction.length}} รายการ</p>
+        </ng-container>
+        <ng-template #elseBlock>
+          <p>ไม่พบข้อมูล</p>
+        </ng-template>
+      </caption>
+      <thead class="bg-gray-200 text-gray-700">
+        <tr>
+          <th class="px-2 py-1">ID</th>
+          <th class="px-2 py-1">Product ID</th>
+          <th class="px-2 py-1">Transaction Type</th>
+          <th class="px-2 py-1">Quantity</th>
+          <th class="px-2 py-1">Updated</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 divide-y divide-gray-200">
+        <tr *ngFor="let p of showTransaction" class="hover:bg-gray-100">
+          <td class="px-2 py-1">{{ p.id }}</td>
+          <td class="px-2 py-1">{{ p.product.name }}</td>
+          <td class="px-2 py-1">{{ p.transactionType.name }}</td>
+          <td class="px-2 py-1">{{ p.quantity }}</td>
+          <td class="px-2 py-1">{{ p.updateDate | date: 'dd/MM/yyyy'}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
-
-
-<!-- Table transaction -->
-<div class="overflow-x-auto mt-5">
-  <table
-    class="text-center mx-auto w-full sm:max-w-4xl bg-white shadow-sm rounded overflow-hidden caption-bottom divide-y divide-gray-200">
-    <caption class="text-start mx-3 text-gray-400">
-      <ng-container *ngIf="showTransaction; else elseBlock">
-        <p>พบข้อมูลทั้งหมด {{showTransaction.length}} รายการ</p>
-      </ng-container>
-      <ng-template #elseBlock>
-        <p>ไม่พบข้อมูล</p>
-      </ng-template>
-    </caption>
-    <thead class="bg-gray-200 text-gray-700">
-      <tr>
-        <th class="px-2 py-1">ID</th>
-        <th class="px-2 py-1">Product ID</th>
-        <th class="px-2 py-1">Transaction Type</th>
-        <th class="px-2 py-1">Quantity</th>
-        <th class="px-2 py-1">Updated</th>
-      </tr>
-    </thead>
-    <tbody class="text-gray-600 divide-y divide-gray-200">
-      <tr *ngFor="let p of showTransaction" class="hover:bg-gray-100">
-        <td class="px-2 py-1">{{ p.id }}</td>
-        <td class="px-2 py-1">{{ p.product.name }}</td>
-        <td class="px-2 py-1">{{ p.transactionType.name }}</td>
-        <td class="px-2 py-1">{{ p.quantity }}</td>
-        <td class="px-2 py-1">{{ p.updateDate | date: 'dd/MM/yyyy'}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+</section>
