@@ -31,6 +31,10 @@ export class TransactionService {
     return this.http.delete<Transaction>(`${this.baseURL}/${id}`);
   }
 
+  getTransactionByPage(id: number | string) {
+    return this.http.get<Transaction[]>(`${this.baseURL}/page/${id}`);
+  }
+
   errorHandler(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

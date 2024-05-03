@@ -22,14 +22,39 @@ export class TransactionsComponent implements OnInit {
   searchProductName = '';
   showTransaction: Transaction[] = [];
 
+  currentPage: number = 1;
+  totalPages: number = 1;
+  // pages: number[] = [];
+
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
-    this.transactionService.getTransactions().subscribe(
+    this.loadTransactionPage(this.currentPage);
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadTransactionPage(this.currentPage);
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.loadTransactionPage(this.currentPage);
+    }
+  }
+
+  loadTransactionPage(page: number) {
+    this.transactionService.getTransactionByPage(page).subscribe(
       (result) => {
-        // console.log(result);
         this.AllTransaction = result;
         this.showTransaction = result;
+        this.totalPages = Math.ceil(result.length / 2);
+        // this.pages = Array(this.totalPages)
+        //   .fill(0)
+        //   .map((x, i) => i + 1);
       },
       (error) => {
         console.error(error);
