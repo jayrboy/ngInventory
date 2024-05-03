@@ -14,16 +14,18 @@ import Transaction from '../../models/transaction.model';
 export class TransactionsComponent implements OnInit {
   AllTransaction: Transaction[] = [];
   idTransaction = 0;
-  isAddTransaction: boolean = false;
+  idTransactionType = '1';
 
   transaction = new Transaction();
+
+  searchProductName = '';
 
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
     this.transactionService.getTransactions().subscribe(
       (result) => {
-        console.log(result);
+        // console.log(result);
         this.AllTransaction = result;
       },
       (error) => {
@@ -32,32 +34,12 @@ export class TransactionsComponent implements OnInit {
     );
   }
 
-  // Create Transaction Component
-  onAddTransaction() {
-    if (this.isAddTransaction) {
-      this.isAddTransaction = false;
-    } else {
-      this.isAddTransaction = true;
-    }
+  onKey(event: any) {
+    this.searchProductName = event.target?.value;
 
-    // เมื่อเปิดทำงานให้ reset ค่าในฟอร์ม
-    this.transaction = new Transaction();
-  }
-  closeAddTransaction() {
-    this.isAddTransaction = false;
-  }
-
-  onSubmitCreate() {
-    console.log(this.transaction);
-
-    // this.transactionService.post(this.transaction).subscribe(
-    //   (result) => {
-    //     // console.log('Transaction added successfully:', result);
-    //     window.location.reload();
-    //   },
-    //   (error) => {
-    //     console.error('Error adding Transaction:', error);
-    //   }
-    // );
+    console.log({
+      name: this.searchProductName,
+      transactionTypeId: this.idTransactionType,
+    });
   }
 }

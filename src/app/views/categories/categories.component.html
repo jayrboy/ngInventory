@@ -1,5 +1,5 @@
 <!-- Button Add Category -->
-<div class="bg-white text-center m-3">
+<div class="bg-white text-center m-3 text-sm">
   <button (click)="onAddCategory()" class="bg-green-500 hover:bg-green-600 text-white e py-1 px-3 rounded">Add
     Category</button>
 </div>
@@ -7,7 +7,7 @@
 <!-- Table Category -->
 <div class="overflow-x-auto mt-5">
   <table
-    class="mx-auto w-full sm:max-w-4xl bg-white shadow-sm rounded overflow-hidden caption-bottom divide-y divide-gray-200">
+    class="mx-auto w-full text-center sm:max-w-4xl bg-white shadow-sm rounded overflow-hidden caption-bottom divide-y divide-gray-200">
     <caption class="text-start mx-3 text-gray-400">
       <ng-container *ngIf="AllCategories; else elseBlock">
         <p>พบข้อมูลทั้งหมด {{AllCategories.length}} รายการ</p>
@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <div class="mt-6 flex items-center justify-start gap-x-6 m-3">
+      <div class="mt-6 flex items-center justify-end gap-x-6 m-3">
         <button type="button" class="text-sm font-semibold leading-6 text-gray-900"
           (click)="closeAddCategory()">Cancel</button>
         <button type="submit"

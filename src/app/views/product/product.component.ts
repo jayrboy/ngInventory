@@ -31,6 +31,8 @@ export class ProductComponent implements OnInit {
   addStock = 0;
   saleQuantity = 0;
 
+  dropdownOpen: boolean = false;
+
   constructor(
     private productService: ProductService,
     private transactionService: TransactionService
@@ -141,6 +143,7 @@ export class ProductComponent implements OnInit {
       this.isSale = false;
       this.isAddStock = false;
       this.isSale = false;
+      this.dropdownOpen = false;
     }
   }
 
@@ -180,6 +183,7 @@ export class ProductComponent implements OnInit {
       this.isExp = false;
       this.isAddProduct = false;
       this.isSale = false;
+      this.dropdownOpen = false;
     }
   }
 
@@ -216,6 +220,7 @@ export class ProductComponent implements OnInit {
       this.isEditProduct = false;
       this.isExp = false;
       this.isAddProduct = false;
+      this.dropdownOpen = false;
     }
   }
 
@@ -239,5 +244,9 @@ export class ProductComponent implements OnInit {
 
   closeSale() {
     this.isSale = false;
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 }
