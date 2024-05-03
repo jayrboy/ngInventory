@@ -111,14 +111,17 @@ export class TransactionsComponent implements OnInit {
   onSortUpdateDate() {
     if (this.isAscendingOrder) {
       this.showTransaction = this.showTransaction.sort(
-        (a, b) => b.updateDate - a.updateDate
+        (a, b) =>
+          new Date(b.updateDate).getTime() - new Date(a.updateDate).getTime()
       ); // จากมากไปน้อย
     } else {
       this.showTransaction = this.showTransaction.sort(
-        (a, b) => a.updateDate - b.updateDate
+        (a, b) =>
+          new Date(a.updateDate).getTime() - new Date(b.updateDate).getTime()
       ); // จากน้อยไปมาก
     }
 
     this.isAscendingOrder = !this.isAscendingOrder;
   }
+  //
 }
