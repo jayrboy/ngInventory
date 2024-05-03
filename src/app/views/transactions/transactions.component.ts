@@ -19,6 +19,7 @@ export class TransactionsComponent implements OnInit {
   transaction = new Transaction();
 
   searchProductName = '';
+  showTransaction: Transaction[] = [];
 
   constructor(private transactionService: TransactionService) {}
 
@@ -27,6 +28,7 @@ export class TransactionsComponent implements OnInit {
       (result) => {
         // console.log(result);
         this.AllTransaction = result;
+        this.showTransaction = result;
       },
       (error) => {
         console.error(error);
@@ -41,5 +43,14 @@ export class TransactionsComponent implements OnInit {
       name: this.searchProductName,
       transactionTypeId: this.idTransactionType,
     });
+
+    this.showTransaction = this.AllTransaction.filter((t) => {
+      return (
+        t.product.name.includes(this.searchProductName) &&
+        t.transactionTypeId == parseInt(this.idTransactionType)
+      );
+    });
+
+    console.log(this.showTransaction);
   }
 }

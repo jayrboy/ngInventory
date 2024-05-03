@@ -10,5 +10,5 @@ export default class Product {
   createDate = new Date();
   updateDate = new Date();
   isDelete = false;
-  categories = new Categories();
+  category = new Categories();
 }

@@ -23,7 +23,7 @@
           <th class="px-2 py-1">ID</th>
           <th class="px-2 py-1">Name</th>
           <th class="px-2 py-1">Description</th>
-          <th class="px-2 py-1">CategoryID</th>
+          <th class="px-2 py-1">Category</th>
           <th class="px-2 py-1">Quantity</th>
           <th class="px-2 py-1">Price</th>
           <!-- <th class="px-2 py-1">Create</th>
@@ -41,7 +41,7 @@
           <td class="px-2 py-1">{{ p.id }}</td>
           <td class="px-2 py-1">{{ p.name }}</td>
           <td class="px-2 py-1">{{ p.description }}</td>
-          <td class="px-2 py-1">{{ p.categoryId }}</td>
+          <td class="px-2 py-1">{{ p.category.name }}</td>
           <td class="px-2 py-1">{{ p.stockQuantity }}</td>
           <td class="px-2 py-1">{{ p.price }}</td>
           <!-- <td class="px-2 py-1">{{ p.createDate| date: 'dd/MM/yyyy' }}</td>
@@ -202,7 +202,7 @@
               <div class="sm:col-span-2 sm:col-start-1">
                 <label class="block text-sm font-medium leading-6 text-gray-900">Category ID</label>
                 <div class="mt-2">
-                  <input [(ngModel)]="product.categoryId" type="number" name="categoryId" id="categoryId"
+                  <input [(ngModel)]="product.category.name" type="text" name="categoryId" id="categoryId"
                     style="text-align: center;"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
