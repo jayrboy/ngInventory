@@ -7,6 +7,8 @@ import { Response } from '../../models/response.model';
 import { FormsModule } from '@angular/forms';
 import { TransactionService } from '../../services/transaction.service';
 import Transaction from '../../models/transaction.model';
+import { CategoriesService } from '../../services/categories.service';
+import Categories from '../../models/categories.model';
 
 @Component({
   selector: 'app-product',
@@ -16,6 +18,8 @@ import Transaction from '../../models/transaction.model';
 })
 export class ProductComponent implements OnInit {
   AllProduct: Product[] = [];
+  AllCategories: Categories[] = [];
+
   idProduct = 0;
   isAddProduct: boolean = false;
   isEditProduct: boolean = false;
@@ -35,14 +39,26 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private categoriesService: CategoriesService
   ) {}
 
   ngOnInit() {
+    // Product
     this.productService.getProducts().subscribe(
       (result: Response) => {
         // console.log(result.data);
         this.AllProduct = result.data;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    // Categories
+    this.categoriesService.getCategories().subscribe(
+      (result: Response) => {
+        // console.log(result);
+        this.AllCategories = result.data;
       },
       (error) => {
         console.error(error);
@@ -86,6 +102,7 @@ export class ProductComponent implements OnInit {
   // Edit Product Component
   onEditProduct(productId: number) {
     // console.log(productId);
+
     this.isEditProduct = true;
     this.isAddProduct = false;
     this.isSale = false;
@@ -107,6 +124,8 @@ export class ProductComponent implements OnInit {
   }
 
   onSubmitUpdate() {
+    console.log(this.product);
+
     this.productService.put(this.product).subscribe(
       (result) => {
         window.location.reload();
