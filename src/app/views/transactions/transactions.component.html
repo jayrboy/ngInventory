@@ -39,13 +39,54 @@
       </caption>
       <thead class="bg-gray-200 text-gray-700">
         <tr>
-          <th class="px-2 py-1">ID</th>
-          <th class="px-2 py-1">Product ID</th>
-          <th class="px-2 py-1">Transaction Type</th>
-          <th class="px-2 py-1">Quantity</th>
-          <th class="px-2 py-1">Updated</th>
+          <th class="px-2 py-1">
+            ID
+            <button (click)="onSortId()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button>
+          </th>
+          <th class="px-2 py-1">Product ID
+            <button (click)="onSortProduct()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button>
+          </th>
+          <th class="px-2 py-1">Transaction Type<button (click)="onSortTransaction()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
+          <th class="px-2 py-1">Quantity<button (click)="onSortQuantity()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
+          <th class="px-2 py-1">Updated<button (click)="onSortUpdateDate()"
+              class="shadow bg-gray-200 hover:bg-gray-300 transition duration-300 ease-in-out transform hover:shadow-lg">
+              <mat-icon>
+                <span class="material-symbols-outlined">
+                  arrow_drop_down
+                </span>
+              </mat-icon>
+            </button></th>
         </tr>
       </thead>
+
       <tbody class="text-gray-600 divide-y divide-gray-200">
         <tr *ngFor="let p of showTransaction" class="hover:bg-gray-100">
           <td class="px-2 py-1">{{ p.id }}</td>
