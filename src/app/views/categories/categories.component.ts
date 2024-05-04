@@ -104,9 +104,8 @@ export class CategoriesComponent implements OnInit {
     // console.log(this.product);
     this.categoriesService.post(this.categories).subscribe(
       (result) => {
-        console.log('Product added successfully:', result);
-        // เมื่อเพิ่มผลิตภัณฑ์สำเร็จให้โหลดหน้าใหม่เพื่อแสดงผลล่าสุด
         window.location.reload();
+        alert('เพิ่มหมวดหมู่สินค้าสำเร็จ');
       },
       (error) => {
         console.error('Error adding product:', error);

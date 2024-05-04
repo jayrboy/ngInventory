@@ -23,8 +23,9 @@ export class TransactionsComponent implements OnInit {
   showTransaction: Transaction[] = [];
 
   currentPage: number = 1;
-  totalPages: number = 1;
-  // pages: number[] = [];
+  totalPages: number = 0;
+  totalPagesArray: number[] = [];
+  clickedButton: number = 0;
 
   constructor(private transactionService: TransactionService) {}
 
@@ -49,12 +50,22 @@ export class TransactionsComponent implements OnInit {
   loadTransactionPage(page: number) {
     this.transactionService.getTransactionByPage(page).subscribe(
       (result) => {
-        this.AllTransaction = result;
+        this.currentPage = page;
         this.showTransaction = result;
-        this.totalPages = Math.ceil(result.length / 2);
-        // this.pages = Array(this.totalPages)
-        //   .fill(0)
-        //   .map((x, i) => i + 1);
+        this.clickedButton = page;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    this.transactionService.getTransactions().subscribe(
+      (result) => {
+        this.AllTransaction = result;
+        this.totalPages = Math.ceil(result.length / 10); // Assuming pageSize is 5
+        this.totalPagesArray = Array.from(
+          { length: this.totalPages },
+          (_, i) => i + 1
+        );
       },
       (error) => {
         console.error(error);
@@ -147,6 +158,10 @@ export class TransactionsComponent implements OnInit {
     }
 
     this.isAscendingOrder = !this.isAscendingOrder;
+  }
+
+  onAutoLoad() {
+    window.location.reload();
   }
   //
 }

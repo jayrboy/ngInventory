@@ -8,8 +8,16 @@
 
   <!-- Button Add Category -->
   <article class="bg-white text-center mx-3 text-sm">
-    <button (click)="onAddCategory()"
-      class="bg-green-500 hover:bg-green-600 text-white e py-1 px-3 rounded">เพิ่มหมวดหมู่สินค้า</button>
+    <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded" (click)="onAddCategory()">
+      <span class="flex items-center justify-center">
+        <mat-icon>
+          <span class="material-symbols-outlined">
+            add_circle
+          </span>
+        </mat-icon>
+        &nbsp;เพิ่มหมวดหมู่สินค้า
+      </span>
+    </button>
   </article>
 
   <!-- Table Category -->

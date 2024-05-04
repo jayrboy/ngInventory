@@ -73,6 +73,7 @@ export class ProductComponent implements OnInit {
       this.productService.delete(productId).subscribe(
         (result) => {
           this.AllProduct = this.AllProduct.filter((p) => p.id !== productId);
+          window.location.reload();
         },
         (error) => {
           console.error(error);
@@ -130,6 +131,7 @@ export class ProductComponent implements OnInit {
     this.productService.put(this.product).subscribe(
       (result) => {
         window.location.reload();
+        alert('อัปเดตข้อมูลสำเร็จ');
       },
       (error) => {
         console.error(error);
@@ -141,9 +143,9 @@ export class ProductComponent implements OnInit {
     // console.log(this.product);
     this.productService.post(this.product).subscribe(
       (result) => {
-        console.log('Product added successfully:', result);
-        // เมื่อเพิ่มผลิตภัณฑ์สำเร็จให้โหลดหน้าใหม่เพื่อแสดงผลล่าสุด
+        console.log('Product added successfully :', result);
         window.location.reload();
+        alert('เพิ่มข้อมูลสำเร็จ');
       },
       (error) => {
         console.error('Error adding product:', error);
@@ -181,6 +183,7 @@ export class ProductComponent implements OnInit {
       (result) => {
         // console.log(result);
         window.location.reload();
+        alert('อัปเดตรายการ หมดอายุ สำเร็จ');
       },
       (error) => {
         console.error(error);
@@ -218,6 +221,7 @@ export class ProductComponent implements OnInit {
       (result) => {
         // console.log(result);
         window.location.reload();
+        alert('เพิ่มจำนวนสินค้าสำเร็จ');
       },
       (error) => {
         console.error(error);
@@ -255,6 +259,7 @@ export class ProductComponent implements OnInit {
       (result) => {
         // console.log(result);
         window.location.reload();
+        alert('เพิ่มรายการขายสำเร็จ');
       },
       (error) => {
         console.error(error);
